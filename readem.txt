@@ -1,0 +1,14 @@
+Based on my testing the TCP socket holds up to 10KB of data in this temp queue when device lost registration or remote server is sleeping.
+ The queue size is 10KB with or without the fixe for SARA_R4-1983. This JIRA only fixes the AT interface lockup after this queue is filled up.
+
+@Chiko,
+
+The 32KB I mentioned is the size of TCP buffer (this buffer is never filled up ) and is different from this one. 
+I think what the customers should know is the 10KB and not the 32KB. Sorry about the confusion here.
+
+Let me know if you guys have more questions on this one.
+
+
+There is only one queue i.e. the TCP receive window. And you are right that is 16384 bytes, so our module can hold 16384 bytes of data without reading.
+TCP socket will send TCP zero window if we do not read the data and the server continues to send data.
+
